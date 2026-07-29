@@ -1,0 +1,5 @@
+<IfModule mod_headers.c>
+    <FilesMatch "\.pdf$">
+        Header always set Content-Disposition "inline"
+    </FilesMatch>
+</IfModule>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Composições EPIGEN</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .fallback {
+      font-family: Arial, sans-serif;
+      padding: 16px;
+      line-height: 1.4;
+    }
+    a { display: inline-block; margin: 8px 8px 0 0; }
+  </style>
+</head>
+<body>
+
+<script>
+(function () {
+  var pdfDesktop = "EPIGENS_Composicoes_dos_produtos.pdf#zoom=page-width";
+  var pdfMobile  = "EPIGENS_Composicoes_dos_produtos_mobile.pdf#zoom=page-width";
+
+  // Heurística simples: mobile por largura ou user-agent
+  var ua = navigator.userAgent || "";
+  var isMobileUA = /Android|iPhone|iPad|iPod|Windows Phone/i.test(ua);
+  var isNarrow = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+
+  var target = (isMobileUA || isNarrow) ? pdfMobile : pdfDesktop;
+
+  // No mobile: abre direto (evita iframe ruim no Chrome mobile)
+  if (isMobileUA || isNarrow) {
+    window.location.replace(target);
+    return;
+  }
+
+  // Desktop: embute em iframe
+  var iframe = document.createElement("iframe");
+  iframe.src = target;
+  iframe.style.position = "fixed";
+  iframe.style.top = "0";
+  iframe.style.left = "0";
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
+  document.body.appendChild(iframe);
+})();
+</script>
+
+<noscript>
+  <div class="fallback">
+    <p>Abra a versão desejada:</p>
+    <a href="EPIGENS_Composicoes_dos_produtos.pdf" target="_blank" rel="noopener">PDF Desktop</a>
+    <a href="EPIGENS_Composicoes_dos_produtos_mobile.pdf" target="_blank" rel="noopener">PDF Mobile</a>
+  </div>
+</noscript>
+
+</body>
+</html>
